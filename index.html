@@ -113,10 +113,6 @@
             color: #000;
             box-shadow: 0 0 30px rgba(212, 175, 55, 1);
         }
-
-        #youtube-container {
-            display: none;
-        }
     </style>
 </head>
 <body>
@@ -131,8 +127,8 @@
         <button id="start-btn">Abrir Presente</button>
     </div>
 
-    <!-- Container onde o vídeo será injetado para forçar o autoplay no celular após o clique -->
-    <div id="youtube-container"></div>
+    <!-- Áudio nativo escondido que puxa o arquivo AAC do GitHub -->
+    <audio id="bg-music" src="musica.aac"></audio>
 
     <script>
         // ==========================================
@@ -175,7 +171,7 @@
         }
 
         // ==========================================
-        // LÓGICA DO CLIQUE E MÚSICA
+        // LÓGICA DO CLIQUE E MÚSICA LOCAL
         // ==========================================
         let fireworkIntensity = 0.03; // Intensidade inicial dos fogos
 
@@ -187,9 +183,10 @@
             // Aumenta a quantidade de fogos
             fireworkIntensity = 0.15;
 
-            // Injeta o iframe do YouTube com autoplay (ID da música Måneskin - CORALINE)
-            const ytContainer = document.getElementById('youtube-container');
-            ytContainer.innerHTML = '<iframe width="10" height="10" src="https://www.youtube.com/embed/CmMO42bOTZ4?autoplay=1&enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media"></iframe>';
+            // Toca a música aac local
+            const music = document.getElementById("bg-music");
+            music.volume = 1.0; 
+            music.play().catch(error => console.log("O navegador bloqueou o áudio", error));
         });
 
         // ==========================================
